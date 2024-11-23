@@ -1,0 +1,74 @@
+{% extends 'webapp/base.html'%}
+{% block title %} Cart {% endblock %}
+
+{% block body %}
+<div class="container ">
+	<br>
+	<h3 class="text-info"><strong>Order Information :</strong></h3>
+	<br>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<th>Item Name</th>
+			<th>Quantity</th>
+			<th>Price</th>
+		</thead>
+		{% for x in items %}
+		<tr>
+			<td>{{x.0}}</td>
+			<td>{{x.1}}</td>
+			<td>&#x20b9; {{x.2}}</td>
+		</tr>
+		{% endfor %}
+
+	</table>
+	<br>
+	<span><b>Total price: </b></span><span> &#x20b9; {{totalprice}}
+	</span>
+	<br>
+	<br>
+	<span><strong>Delivery Address:</strong></span>
+	<br>
+	<br>
+	<div><input type="text" name="address" style="width:60%; height: 70px;" required /></div>
+	<input type="hidden" name="oid" value="{{oid}}">
+	<br>
+
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	<script>
+		var options = {
+			key: "rzp_test_Vt2YnDmxKg50Y7",
+			amount: "{{grand}}",
+			currency: "INR",
+			name: "Complete  Order  Purchase",
+			description: "Test Transaction",
+			image: "https://example.com/your_logo",
+			callback_url: "http://localhost:8000/myorders/",
+			redirect: true,
+			prefill: {
+				"name": "{{user}}",
+				"email": "{{acc.useremail}}",
+				"contact": "{{acc.userphone}}"
+			},
+			notes: {
+				"address": "Razorpay Corporate Office"
+			},
+			theme: {
+				"color": "#3399cc"
+			}
+		};
+		function x() {
+
+			var rzp1 = new Razorpay(options);
+			rzp1.open();
+		}
+	</script>
+
+
+	<button onclick="x()" class="btn btn-success btn-lg">Checkout </button>
+
+
+
+
+</div>
+
+{% endblock %}

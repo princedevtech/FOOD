@@ -1,0 +1,39 @@
+{% extends 'webapp/base.html'%}
+{% block title %}Restaurants{% endblock %}
+
+{% block body %}
+{% load static %}
+<div class="container-fluid">
+  <h1 class="text-center text-danger mt-5"><font size="6"><strong>Restaurants</strong></font></h1>
+</div>
+<br>
+	<div class="container">
+		<div class="row">
+		{% for rest in r_object %}
+        <div class="col-xs-7 col-md-7">
+      <div class="thumbnail">
+   		   <div class="media mb-2 ml-8" style="border-radius: 10px; border-style: groove; border-width: 2px;">
+        <a href="{% url 'menu' rest.id %}" class="pull-left ">
+            <img src="{%static 'webapp/media/restaurant-img1.jpg'%}" class="img-thumbnail img-responsive " style="height: 180px; width: 200px; ">
+        </a>
+        <div class="media-body pl-4">
+          <a href="{% url 'menu' rest.id %}" style="text-decoration: none !important; ">
+            <h1 class="media-heading text-info mt-1 mr-5 text-danger" style="height: 70px"><strong>{{rest.rname}}</strong></h1></a>
+            <h6 class="text-secondary"><font size="3"><strong>{{rest.info}}</strong></font></h6>
+            <h4><font size="2">Min: &#x20b9; {{rest.min_ord}}</font></h4>
+          	<h5><font size="3">Status: <strong class="text-success">{{rest.status}}</strong></font></h5>
+
+        </div>
+         
+    </div>
+
+  </div>
+</div>
+
+{% endfor%}
+</div>
+</div>
+
+{% endblock %}
+
+
